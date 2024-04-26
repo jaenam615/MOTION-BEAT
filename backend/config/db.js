@@ -9,4 +9,4 @@ const db = mongoose.connect("mongodb://localhost:27017/motionBeat")
         console.log(err);
     })
 
-module.exports = db; 
+export default db; 

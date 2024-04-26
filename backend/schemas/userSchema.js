@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcrypt';
+import { compare, hash } from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     email:{
@@ -24,15 +24,15 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.findAndValidate =  async function (email, pw){
     const foundUser = await this.findOne({email});
-    const validate = await bcrypt.compare(pw, foundUser.pw);
+    const validate = await compare(pw, foundUser.pw);
     return validate? foundUser : false; 
 }
 
-userSchema.pre('save', async function(next){
-    if (!this.isModified('pw')) return next();
-    this.pw = await bcrypt.hash(this.pw, 12);
+userSchema.pre("save", async function(next){
+    if (!this.isModified("pw")) return next();
+    this.pw = await hash(this.pw, 12);
     console.log(this);
     next();
 })
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);

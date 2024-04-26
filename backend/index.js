@@ -1,10 +1,12 @@
 // backend/index.js
 import express from "express";
-import { session } from "express-session";
-import { bodyParser } from "body-parser";
-import { cors } from "cors";
+// import { session } from "express-session";
+import bodyParser from "body-parser";
+import cors from "cors";
 import bcrypt from "bcrypt";
-import db from "./config/db";
+import db from "./config/db.js";
+import userRouter from "./routes/userRouter.js";
+import songRouter from "./routes/songRouter.js";
 
 const app = express();
 const corsOptions = {
@@ -13,8 +15,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// request parsing
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended:true}));
+
+app.use("/user", userRouter);
+app.use("/song", songRouter);
 
 // 받은 메시지를 echo 필드에 담아 응답합니다.
 app.post("/echo", (req, res) => {
