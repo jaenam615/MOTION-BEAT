@@ -19,11 +19,11 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use("/user", userRouter);
-app.use("/song", songRouter);
+app.use("/api/user", userRouter);
+app.use("/api/song", songRouter);
 
 // 받은 메시지를 echo 필드에 담아 응답합니다.
-app.post("/echo", (req, res) => {
+app.post("api/echo", (req, res) => {
     const message = req.body.message; 
     res.json({ echo: message }); 
 });
@@ -32,6 +32,10 @@ app.post("/echo", (req, res) => {
 app.get("/api/echo/:message", (req, res) => {
     res.json({ echo: req.params.message });
 }); 
+
+app.get('/', (req, res) => {
+    res.send("Welcome to MOTION-BEAT");
+});
 
 if (
     typeof chrome !== "undefined" &&
