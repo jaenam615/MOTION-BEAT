@@ -45,5 +45,5 @@ BE
 │ └── user.yml  
 ├── /utils  
 │ ├── io.js  
-| ├── openvidu.js  
+│ ├── openvidu.js  
 │ └── socket.js  
