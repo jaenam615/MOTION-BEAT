@@ -9,6 +9,6 @@ const db = mongoose.connect(process.env.DB)
     .catch((err)=> {
         console.log("DB connection error");
         console.log(err);
-    })
+    });
 
 export default db; 

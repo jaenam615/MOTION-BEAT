@@ -2,20 +2,20 @@ import mongoose from "mongoose";
 import { compare, hash } from "bcrypt";
 
 const userSchema = new mongoose.Schema({
-    email:{
-        type:String,
-        required:true,
+    email: {
+        type: String,
+        required: true,
         unique: true
     },
-    nickname:{
-        type:String,
-        required:true,
+    nickname: {
+        type: String,
+        required: true,
         maxlength: 15,
-        unique: true,        
+        unique: true,
     },
-    pw:{
-        type:String,
-        required:true,
+    pw: {
+        type: String,
+        required: true,
         minlength: 6
     },
     token: {
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     recentlyPlayed: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         ref: 'Song'
     }],
     friends: {
@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
         },
         buttonVolume: {
             type: Number,
-            default: 50   
+            default: 50
         },
         gameVolume: {
             type: Number,
@@ -65,19 +65,19 @@ const userSchema = new mongoose.Schema({
     instrument: {
         type: String,
         ref: "Instrument"
-    }
+    },
+
 });
 
-userSchema.statics.findAndValidate =  async function (email, pw){
+userSchema.statics.findAndValidate = async function (email, pw) {
     const foundUser = await this.findOne({ email });
     const validate = await compare(pw, foundUser.pw);
-    return validate? foundUser : false; 
+    return validate ? foundUser : false;
 }
 
-userSchema.pre("save", async function(next){
+userSchema.pre("save", async function (next) {
     if (!this.isModified("pw")) return next();
     this.pw = await hash(this.pw, 12);
-    console.log(this);
     next();
 })
 
