@@ -15,19 +15,26 @@ BE
 │ ├── chatController.js  
 │ ├── chatroomController.js  
 │ ├── gameController.js  
+│ ├── instrumentController.js  
+│ ├── openviduController.js  
 │ ├── rankingController.js  
 │ ├── songController.js  
 │ └── userController.js  
 ├── /middlewares  
 │ ├── adminAuth.js  
+│ ├── middleware.js  
+│ ├── rateLimitMiddleware.js  
 │ └── authMiddleware.js  
 ├── /modules  
 │ └── swagger.js  
 ├── /routes  
 │ ├── chatroomRouter.js  
 │ ├── gameRouter.js  
+│ ├── instrumentRouter.js  
+│ ├── openviduRouter.js  
 │ ├── rankingRouter.js  
 │ ├── roomRouter.js  
+│ ├── routes.js  
 │ ├── songRouter.js  
 │ └── userRouter.js  
 ├── /schemas  
